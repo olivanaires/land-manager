@@ -1,0 +1,23 @@
+-- Para não dar erro ao executar
+select now();
+--
+-- drop table authorities;
+-- alter table users add column id bigint;
+-- create sequence users_id_seq;
+-- alter table users alter column "id" set default nextval('users_id_seq');
+-- update users set "id"=1 where username='olivanaires';
+-- update users set "id"=2 where username='joaonapoleao';
+-- update users set "id"=3 where username='mariaclara';
+-- alter table users drop constraint users_pkey;
+-- alter table users add primary key ("id");
+-- insert into roles (id, name) values (1,'ROLE_ADMIN');
+-- insert into roles (id, name) values (2,'ROLE_EMPLOYEE');
+-- insert into user_roles (user_id, role_id) values (1,1);
+-- insert into user_roles (user_id, role_id) values (2,1);
+-- insert into user_roles (user_id, role_id) values (3,2);
+--
+-- alter table payments drop constraint payments_pkey;
+-- alter table payments add column id bigint;
+-- update payments set "id"="sequence";
+-- alter table payments add primary key ("id");
+-- alter table payments drop column "sequence";
