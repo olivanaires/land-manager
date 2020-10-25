@@ -14,7 +14,7 @@
                         {{home}}
                     </b-nav-item>
 
-                    <b-nav-item-dropdown v-if="currentUser" left>
+                    <b-nav-item-dropdown v-if="currentUser && hasRole('ROLE_ADMIN')" left>
                         <template v-slot:button-content>
                             <b-icon icon="person"></b-icon>
                             {{user}}
