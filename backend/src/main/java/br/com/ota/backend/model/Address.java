@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -35,8 +36,7 @@ public class Address extends BaseEntity {
     @Size(max = 9)
     private String postcode;
 
-    @NotBlank
-    @Size(max = 50)
-    private String city;
+    @ManyToOne
+    private City city;
 
 }

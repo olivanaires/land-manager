@@ -71,7 +71,4 @@ public class Contract extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private List<Person> people;
 
-    @OneToMany(mappedBy = "contract", fetch = FetchType.EAGER)
-    private Set<Payment> payments;
-
 }

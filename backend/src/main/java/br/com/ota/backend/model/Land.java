@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,31 +16,32 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 public class Land extends BaseEntity {
 
-    private byte area;
+    private float area;
 
-    private byte backdimension;
+    private float backdimension;
 
     private String backintersection;
 
     private String block;
 
-    private byte frontdimension;
+    private float frontdimension;
 
     private String frontintersection;
 
-    private byte lefdimension;
+    private float lefdimension;
 
     private String leftintersection;
 
     private String number;
 
-    private byte rightdimension;
+    private float rightdimension;
 
     private String rightintersection;
 
     private String situation;
 
     @ManyToOne
+    @JoinColumn(name = "landlocation_id", referencedColumnName = "id")
     private LandLocation landLocation;
 
 }

@@ -38,10 +38,4 @@ public class Person extends BaseEntity {
     @OneToOne
     private Address address;
 
-    @ManyToMany
-    @JoinTable(name = "people_contracts",
-            joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "contract_id", referencedColumnName = "id"))
-    private List<Contract> contracts;
-
 }

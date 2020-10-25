@@ -22,6 +22,15 @@
                         <b-dropdown-item v-if="currentUser && hasRole('ROLE_ADMIN')" to="/userRegister">{{create}}</b-dropdown-item>
                         <b-dropdown-item v-if="currentUser && hasRole('ROLE_ADMIN')" to="/userList">{{list}}</b-dropdown-item>
                     </b-nav-item-dropdown>
+
+                    <b-nav-item-dropdown v-if="currentUser" left>
+                        <template v-slot:button-content>
+                            <b-icon icon="file-earmark-text"></b-icon>
+                            {{contract}}
+                        </template>
+<!--                        <b-dropdown-item v-if="currentUser" to="/userRegister">{{create}}</b-dropdown-item>-->
+                        <b-dropdown-item v-if="currentUser" to="/contractList">{{list}}</b-dropdown-item>
+                    </b-nav-item-dropdown>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -48,8 +57,11 @@
     export default {
         data() {
             return {
+                create: 'Cadastrar',
+                list: 'Listar',
                 home: 'Início',
                 user: 'Usuário',
+                contract: 'Contrato',
                 profile: 'Perfil',
                 exit: 'Sair',
             }

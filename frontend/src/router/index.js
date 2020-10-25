@@ -31,6 +31,11 @@ const routes = [
         component: () => import('../components/list/User.vue')
     },
     {
+        path: '/contractList',
+        name: 'contractList',
+        component: () => import('../components/list/Contract.vue')
+    },
+    {
         path: '/userUpdate/:id',
         name: 'userUpdate',
         component: () => import('../components/register/User.vue')
