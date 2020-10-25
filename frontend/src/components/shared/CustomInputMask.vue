@@ -13,7 +13,7 @@
     export default {
         name: 'c-input-mask',
         props: {
-            value: {required: true, default: ''},
+            value: {required: false, default: ''},
             maskValue: {type: String, required: true},
             labelValue: {type: String, required: true},
             bsColValue: {type: String, default: "col-md-12"},

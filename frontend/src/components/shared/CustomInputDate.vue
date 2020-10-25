@@ -29,7 +29,7 @@
     export default {
         name: 'c-input-date',
         props: {
-            value: {required: true, default: Date},
+            value: {required: false, default: Date},
             labelValue: {type: String, required: true},
             bsColValue: {type: String, default: "col-md-12"},
             disabled: {type: Boolean, default: false},

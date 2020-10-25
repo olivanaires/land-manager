@@ -14,7 +14,7 @@
     export default {
         name: 'c-input-text',
         props: {
-            value: {required: true, default: ''},
+            value: {required: false, default: ''},
             labelValue: {type: String, required: true},
             bsColValue: {type: String, default: "col-md-12"},
             disabled: {type: Boolean, default: false},
