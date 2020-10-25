@@ -7,7 +7,7 @@
 
 	<parent>
 		<groupId>br.com.ota</groupId>
-		<artifactId>cpj</artifactId>
+		<artifactId>land-manager</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -58,16 +58,16 @@
             			</configuration>
 					</execution>
 					<!-- Run Unit tests with Jest -->
-					<execution>
-					<id>npm run test:unit</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<phase>test</phase>
-					<configuration>
-						<arguments>run test:unit</arguments>
-					</configuration>
-					</execution>
+<!--					<execution>-->
+<!--					<id>npm run test:unit</id>-->
+<!--					<goals>-->
+<!--						<goal>npm</goal>-->
+<!--					</goals>-->
+<!--					<phase>test</phase>-->
+<!--					<configuration>-->
+<!--						<arguments>run test:unit</arguments>-->
+<!--					</configuration>-->
+<!--					</execution>-->
 					<!-- Run End2End tests with Nightwatch -->
 					<!--
 					<execution>

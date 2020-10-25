@@ -16,7 +16,7 @@ public class EmailService {
 
     public void sendNewUserEmail(UserRequest userRequest) {
 
-        String subject = "Usuário e Senha do NAP-CPJ";
+        String subject = "Usuário e Senha do NAP-LAND-MANAGER";
 
         Email from = new Email("airesolivan@gmail.com");
         Email to = new Email(userRequest.getEmail());
