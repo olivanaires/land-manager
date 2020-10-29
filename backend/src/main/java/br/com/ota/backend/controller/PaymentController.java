@@ -18,8 +18,16 @@ public class PaymentController {
 
     @GetMapping("/by-contract/{contractId}")
     public ResponseEntity<List<Payment>> findAllByContractIdOrderByExpirationdateAsc(@PathVariable Long contractId) {
-        List<Payment> contracts = paymentService.findAllByContractIdOrderByExpirationdateAsc(contractId);
-        return ResponseEntity.ok(contracts);
+        List<Payment> payments = paymentService.findAllByContractIdOrderByExpirationdateAsc(contractId);
+        return ResponseEntity.ok(payments);
     }
+
+    @GetMapping("/load/{paymentId}")
+    public ResponseEntity<Payment> findById(@PathVariable Long paymentId) {
+        Payment payment = paymentService.findById(paymentId);
+        return ResponseEntity.ok(payment);
+    }
+
+
 
 }

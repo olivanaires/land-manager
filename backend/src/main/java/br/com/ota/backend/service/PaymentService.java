@@ -17,4 +17,8 @@ public class PaymentService {
         return paymentRepository.findAllByContractIdOrderByExpirationdateAsc(contractId);
     }
 
+    public Payment findById(Long id) {
+        return paymentRepository.findById(id).get();
+    }
+
 }
