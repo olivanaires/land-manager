@@ -1,5 +1,5 @@
 # Build mvn clean install frontend files
-#backend/src/main/resources/public/static/**
+backend/src/main/resources/public/**
 
 # Miscellaneous
 *.class
