@@ -97,7 +97,6 @@
         mounted() {
             ContractService.load(this.contractId).then(response => {
                 this.contract = response.data;
-                console.log(response.data);
             }).catch(error => this.$swal({icon: 'error', title: error.response.data.message}));
         },
     }

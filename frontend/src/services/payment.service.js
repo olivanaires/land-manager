@@ -13,6 +13,10 @@ class PaymentService {
         return axios.get(API_URL + `load/${paymentID}`, {headers: authHeader()});
     }
 
+    pay(payment) {
+        return axios.post(API_URL + `pay`, payment,{headers: authHeader()});
+    }
+
 }
 
 export default new PaymentService();

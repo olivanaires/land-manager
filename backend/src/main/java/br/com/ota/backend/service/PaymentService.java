@@ -21,4 +21,8 @@ public class PaymentService {
         return paymentRepository.findById(id).get();
     }
 
+    public void save(Payment payment) {
+        paymentRepository.save(payment);
+    }
+
 }

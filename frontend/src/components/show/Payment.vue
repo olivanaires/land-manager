@@ -19,7 +19,7 @@
                                 </template>
 
                                 <template v-slot:cell(paydate)="data">
-                                    {{ data.item.paydate ? formatDate(data.item.paydate) : 'Atrasado ' + data.item.latedays + ' dias' }}
+                                    {{ data.item.paydate ? formatDate(data.item.paydate) : 'Atrasado ' + calculateLateDays(data.item) + ' dias' }}
                                 </template>
 
                                 <template v-slot:cell(value)="data">
@@ -58,8 +58,7 @@
                             <c-input-text v-model="payment.number" label-value="Número" bs-col-value="col-md-3"
                                           :disabled="true"/>
                             <c-input-date v-model="payment.expirationdate" label-value="Vencimento"
-                                          bs-col-value="col-md-3"
-                                          :disabled="true"/>
+                                          bs-col-value="col-md-3" :disabled="true"/>
                             <c-input-text v-model="payment.executedLabel" label-value="Pago?" bs-col-value="col-md-3"
                                           :disabled="true"/>
                         </b-row>
@@ -69,7 +68,7 @@
                             </b-form-group>
                             <c-input-text v-model="payment.insurance" label-value="Multa (%)" bs-col-value="col-md-3"
                                           :disabled="true"/>
-                            <c-input-text v-model="payment.latedaysLabel" label-value="Atraso (Dias)" bs-col-value="col-md-3"
+                            <c-input-text v-model="payment.latedays" label-value="Atraso (Dias)" bs-col-value="col-md-3"
                                           :disabled="true"/>
                             <b-form-group label="Valor Multa (Dia)" class="col-md-3">
                                 <money v-model="payment.interestDay" class="form-control" :disabled="true"></money>
@@ -86,9 +85,14 @@
                             <b-form-group label="Valor Final" class="col-md-3">
                                 <money v-model="payment.paidvalue" class="form-control"></money>
                             </b-form-group>
+                            <c-input-date v-model="payment.paydate" v-on:input="changePaydate($event)"
+                                          label-value="Data Pagamento" bs-col-value="col-md-3"/>
+                        </b-row>
+
+                        <b-row align-h="center" v-if="!payment.executed">
                             <b-button v-on:click="pay()" variant="primary" class="col-md-3"
                                       style="height: 40px; margin-top: 30px;">
-                                Baixa Pagamento
+                                Receber Pagamento
                             </b-button>
                         </b-row>
                     </b-card-body>
@@ -167,25 +171,59 @@
                 });
                 return formatter.format(value);
             },
+            calculateLateDays(payment) {
+                const d1 = new Date();
+                const d2 = new Date(payment.expirationdate);
+                const diff = new Date(+d1).setHours(12) - new Date(+d2).setHours(12);
+                const lateDays = Math.round(diff/8.64e7);
+                return lateDays <= 0 ? 0 : lateDays;
+            },
             changeDiscount(newValue) {
                 this.payment.paidvalue = this.paymentValue - newValue;
             },
+            changePaydate(newValue) {
+                const d1 = new Date(newValue);
+                const d2 = new Date(this.payment.expirationdate);
+                const diff = new Date(+d1).setHours(12) - new Date(+d2).setHours(12);
+                const lateDays = Math.round(diff/8.64e7) - 1;
+
+                const interestDay = this.payment.value * (this.payment.contract.latepenalty / 100);
+                const valueWithInsurance = this.payment.value + (interestDay * lateDays);
+
+                this.payment['interestDay'] = interestDay;
+                this.payment['valueWithInsurance'] = valueWithInsurance;
+                this.payment['paidvalue'] = valueWithInsurance;
+                this.payment.latedays = lateDays;
+                this.paymentValue = valueWithInsurance;
+            },
             show(payment) {
+                this.payment = payment;
+
                 const interestDay = payment.value * (payment.contract.latepenalty / 100);
                 const valueWithInsurance = payment.value + (interestDay * payment.latedays);
 
-                this.payment = payment;
+                const d1 = new Date();
+                const d2 = new Date(this.payment.expirationdate);
+                const diff = new Date(+d1).setHours(12) - new Date(+d2).setHours(12);
+                const lateDays = Math.round(diff/8.64e7) - 1;
+
                 this.payment['descriptionLabel'] = payment.description == 'INTERCALET' ? 'Intercalada' : 'Parcela';
                 this.payment['executedLabel'] = payment.executed ? 'Sim' : 'Não';
-                this.payment['latedaysLabel'] = `${payment.latedays} Dias`;
                 this.payment['insurance'] = `${payment.contract.latepenalty}%`;
                 this.payment['interestDay'] = interestDay;
                 this.payment['valueWithInsurance'] = valueWithInsurance;
                 this.payment['paidvalue'] = valueWithInsurance;
+                this.payment.latedays = lateDays;
                 this.paymentValue = valueWithInsurance;
+                this.payment.paydate = new Date().toISOString().split('T')[0];
             },
             pay() {
-                console.log(this.payment);
+                this.payment.executed = true;
+                this.payment.latepenalty = this.payment.paidvalue - this.payment.value;
+                PaymentService.pay(this.payment)
+                    .then(resp => {
+                        this.$swal({icon: 'error', title: resp.response.data.message})
+                    }).catch(error => this.$swal({icon: 'error', title: error.response.data.message}));
             }
         }
     }
