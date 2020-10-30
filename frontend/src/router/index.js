@@ -26,6 +26,11 @@ const routes = [
         component: () => import('../components/register/User.vue')
     },
     {
+        path: '/igpmRegister',
+        name: 'igpmRegister',
+        component: () => import('../components/register/Igpm.vue')
+    },
+    {
         path: '/userList',
         name: 'userList',
         component: () => import('../components/list/User.vue')

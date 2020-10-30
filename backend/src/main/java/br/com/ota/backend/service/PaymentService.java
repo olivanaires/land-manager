@@ -5,6 +5,7 @@ import br.com.ota.backend.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,6 +16,10 @@ public class PaymentService {
 
     public List<Payment> findAllByContractIdOrderByExpirationdateAsc(Long contractId) {
         return paymentRepository.findAllByContractIdOrderByExpirationdateAsc(contractId);
+    }
+
+    public List<Payment> findAllByContractIdAndExpirationdateIsGreaterThanEqual(Long contractId, LocalDate expirationdate) {
+        return paymentRepository.findAllByContractIdAndExpirationdateIsGreaterThanEqual(contractId, expirationdate);
     }
 
     public Payment findById(Long id) {

@@ -28,8 +28,8 @@
                             <b-icon icon="file-earmark-text"></b-icon>
                             {{contract}}
                         </template>
-<!--                        <b-dropdown-item v-if="currentUser" to="/userRegister">{{create}}</b-dropdown-item>-->
                         <b-dropdown-item v-if="currentUser" to="/contractList">{{list}}</b-dropdown-item>
+                        <b-dropdown-item v-if="currentUser" to="/igpmRegister">{{igpmApply}}</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
 
@@ -57,6 +57,7 @@
     export default {
         data() {
             return {
+                igpmApply: 'Aplicar IGPM',
                 create: 'Cadastrar',
                 list: 'Listar',
                 home: 'Início',

@@ -36,5 +36,4 @@ public class PaymentController {
         return ResponseEntity.ok(new MessageResponse("ok"));
     }
 
-
 }
